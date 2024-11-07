@@ -19,9 +19,36 @@ function getComputerChoice() {
     return choiceMap.get(choiceNumber)
 }
 
+function validateHumanChoice(rawText) {
+    let lowerCaseText = (rawText != null) ? rawText.toLowerCase() : ""
+    switch(lowerCaseText) {
+        case "":
+            validateHumanChoice(prompt("Please enter a value. Rock, paper, or scissors?"));
+            break;
+        case choiceMap.get(0):
+        case choiceMap.get(1):
+        case choiceMap.get(2):
+            return lowerCaseText;
+        default:
+            validateHumanChoice(prompt("Please enter a valid value. Rock, paper or scissors?"));
+            break;
+        
+    }
+} 
+
 function getHumanChoice() {
-    return prompt("Rock, paper, or scissors?");
+    let humanChoiceRaw = prompt("Rock, paper, or scissors?");
+    return validateHumanChoice(humanChoiceRaw);
 }
 
-console.log(getComputerChoice())
-console.log(getHumanChoice())
+function playRound(humanChoice, computerChoice) {
+    // code for play to go here
+}
+
+let computerChoice = getComputerChoice();
+let humanChoice = getHumanChoice();
+
+let computerScore = 0;
+let humanScore = 0;
+
+playRound(humanChoice, computerChoice);
