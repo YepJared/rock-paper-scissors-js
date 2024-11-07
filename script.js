@@ -19,4 +19,9 @@ function getComputerChoice() {
     return choiceMap.get(choiceNumber)
 }
 
+function getHumanChoice() {
+    return prompt("Rock, paper, or scissors?");
+}
+
 console.log(getComputerChoice())
+console.log(getHumanChoice())
