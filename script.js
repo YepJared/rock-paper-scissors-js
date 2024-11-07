@@ -7,12 +7,19 @@
 // 6. Return text of victory, defeat, or draw
 // 7. Return text of current score comparison
 // 8. Prompt player for choice again 
+// 9. Repeat 1-8 as a best of 5 (until one side has 3 wins)
+// 10. Return text of overall victory or defeat
+// 11. Reset all scores
+// 12. Start at 1 for new best of 5
 
 const choiceMap = new Map([
     [0, "rock"],
     [1, "paper"],
     [2, "scissors"]
 ]);
+
+let computerScore = 0;
+let humanScore = 0;
 
 function getComputerChoice() {
     let choiceNumber = Math.floor(Math.random() * 100) % 3;
@@ -85,10 +92,32 @@ function displayRoundResolution(humanWins, humanChoice, computerChoice) {
     }
 }
 
-let computerChoice = getComputerChoice();
-let humanChoice = getHumanChoice();
+function displayGameResolution() {
+    if (humanScore >= 3) {
+        console.log("You win! Your victory shall be celebrated for years to come!");
+    } else {
+        console.log("You have been defeated. Your computer looks oddly smug.");
+    }
+    console.log("--------------------------------------------------")
+}
 
-let computerScore = 0;
-let humanScore = 0;
+function resetScores() {
+    humanScore = 0;
+    computerScore = 0;
+}
 
-playRound(humanChoice, computerChoice);
+function playGame() {
+    console.log("Time to play a best of 5 game of rock, paper, scissors!")
+
+    while(Math.max(humanScore, computerScore) < 3) {
+        let computerChoice = getComputerChoice();
+        let humanChoice = getHumanChoice();
+        playRound(humanChoice, computerChoice);
+    }
+
+    displayGameResolution();
+    resetScores();
+    playGame();
+}
+
+playGame();
