@@ -108,6 +108,7 @@ function resetScores() {
 
 function playGame() {
     console.log("Time to play a best of 5 game of rock, paper, scissors!")
+    resetScores();
 
     while(Math.max(humanScore, computerScore) < 3) {
         let computerChoice = getComputerChoice();
@@ -116,8 +117,4 @@ function playGame() {
     }
 
     displayGameResolution();
-    resetScores();
-    playGame();
 }
-
-playGame();
