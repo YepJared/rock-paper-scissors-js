@@ -8,15 +8,15 @@
 // 7. Return text of current score comparison
 // 8. Prompt player for choice again 
 
+const choiceMap = new Map([
+    [0, "rock"],
+    [1, "paper"],
+    [2, "scissors"]
+]);
+
 function getComputerChoice() {
     let choiceNumber = Math.floor(Math.random() * 100) % 3;
-    if (choiceNumber === 0) {
-        return "rock"
-    } else if (choiceNumber === 1) {
-        return "paper"
-    } else {
-        return "scissors"
-    }
+    return choiceMap.get(choiceNumber)
 }
 
 console.log(getComputerChoice())
