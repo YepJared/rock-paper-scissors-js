@@ -1,16 +1,14 @@
 // Algorithm pseudocode
 // 1. Create computer choice of rock, paper, or scissors (rps)
-// 2. Prompt human for choice of rps
-// 3. Get human choice of rps as string
-// 4. Compare human choice to computer choice
-// 5. Update human or player score
-// 6. Return text of victory, defeat, or draw
-// 7. Return text of current score comparison
-// 8. Prompt player for choice again 
-// 9. Repeat 1-8 as a best of 5 (until one side has 3 wins)
-// 10. Return text of overall victory or defeat
-// 11. Reset all scores
-// 12. Start at 1 for new best of 5
+// 2. Prompt human for choice of rps via button elements
+// 3. Compare human choice to computer choice
+// 4. Update human or player score
+// 5. Show text of victory, defeat, or draw and current score
+// 6. Repeat 1-5 as a best of 5 (until one side has 3 wins)
+// 7. Show text of overall victory or defeat
+// 8. Prompt human for new game
+// 9. Reset all scores
+// 10. Start at 1 for new best of 5
 
 const choiceMap = new Map([
     [0, "rock"],
