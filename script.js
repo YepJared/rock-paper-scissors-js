@@ -20,6 +20,8 @@ let computerScore = 0;
 let humanScore = 0;
 
 const buttons = document.querySelectorAll("button");
+const scorelineText = document.querySelector(".score");
+const resultText = document.querySelector(".round-results");
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -29,14 +31,13 @@ buttons.forEach((button) => {
 
 function getComputerChoice() {
     let choiceNumber = Math.floor(Math.random() * 100) % 3;
-    return choiceMap.get(choiceNumber)
+    return choiceMap.get(choiceNumber);
 }
 
 function playRound(humanChoice) {
     const computerChoice = getComputerChoice();
     if (humanChoice === computerChoice) {
-        console.log(`A draw. You both chose ${humanChoice}`);
-        console.log(`The current score is human: ${humanScore}, computer: ${computerScore}.`);
+        resultText.textContent = `A draw. You both chose ${humanChoice}`;
     } else {
         determineWinner(humanChoice, computerChoice);
     }
@@ -71,13 +72,12 @@ function determineWinner(humanChoice, computerChoice) {
 function displayRoundResolution(humanWins, humanChoice, computerChoice) {
     if (humanWins === true) {
         humanScore++;
-        console.log(`Glorious victory! You chose ${humanChoice} and the computer chose ${computerChoice}.`);
-        console.log(`The current score is human: ${humanScore}, computer: ${computerScore}.`);
+        resultText.textContent = `Glorious victory! You chose ${humanChoice} and the computer chose ${computerChoice}.`;
     } else if (humanWins === false) {
         computerScore++;
-        console.log(`Defeat! You chose ${humanChoice} and the computer chose ${computerChoice}.`);
-        console.log(`The current score is human: ${humanScore}, computer: ${computerScore}.`);
+        resultText.textContent = `Defeat! You chose ${humanChoice} and the computer chose ${computerChoice}.`;
     }
+    scorelineText.textContent = `Human: ${humanScore} | ${computerScore} :Computer`;
 }
 
 function displayGameResolution() {
