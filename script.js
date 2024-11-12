@@ -19,31 +19,21 @@ const choiceMap = new Map([
 let computerScore = 0;
 let humanScore = 0;
 
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        playRound(button.id);
+    });
+});
+
 function getComputerChoice() {
     let choiceNumber = Math.floor(Math.random() * 100) % 3;
     return choiceMap.get(choiceNumber)
 }
 
-function validateHumanChoice(rawText) {
-    let lowerCaseText = (rawText != null) ? rawText.toLowerCase() : ""
-    switch(lowerCaseText) {
-        case "":
-            return validateHumanChoice(prompt("Please enter a value. Rock, paper, or scissors?"));
-        case choiceMap.get(0):
-        case choiceMap.get(1):
-        case choiceMap.get(2):
-            return lowerCaseText;
-        default:
-            return validateHumanChoice(prompt("Please enter a valid value. Rock, paper or scissors?"));
-    }
-} 
-
-function getHumanChoice() {
-    let humanChoiceRaw = prompt("Rock, paper, or scissors?");
-    return validateHumanChoice(humanChoiceRaw);
-}
-
-function playRound(humanChoice, computerChoice) {
+function playRound(humanChoice) {
+    const computerChoice = getComputerChoice();
     if (humanChoice === computerChoice) {
         console.log(`A draw. You both chose ${humanChoice}`);
         console.log(`The current score is human: ${humanScore}, computer: ${computerScore}.`);
@@ -102,17 +92,4 @@ function displayGameResolution() {
 function resetScores() {
     humanScore = 0;
     computerScore = 0;
-}
-
-function playGame() {
-    console.log("Time to play a best of 5 game of rock, paper, scissors!")
-    resetScores();
-
-    while(Math.max(humanScore, computerScore) < 3) {
-        let computerChoice = getComputerChoice();
-        let humanChoice = getHumanChoice();
-        playRound(humanChoice, computerChoice);
-    }
-
-    displayGameResolution();
 }
