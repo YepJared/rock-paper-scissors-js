@@ -19,9 +19,10 @@ const choiceMap = new Map([
 let computerScore = 0;
 let humanScore = 0;
 
-const buttons = document.querySelectorAll("button");
+const buttons = document.querySelectorAll(".game-button");
 const scorelineText = document.querySelector(".score");
 const resultText = document.querySelector(".round-results");
+const gameOverContainer = document.querySelector(".game-over");
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -78,18 +79,60 @@ function displayRoundResolution(humanWins, humanChoice, computerChoice) {
         resultText.textContent = `Defeat! You chose ${humanChoice} and the computer chose ${computerChoice}.`;
     }
     scorelineText.textContent = `Human: ${humanScore} | ${computerScore} :Computer`;
+    
+    if (Math.max(humanScore, computerScore) >= 3) {
+        endGame();
+    }
 }
 
-function displayGameResolution() {
+function endGame() {
+    disableButtons();
+
+    const gameOverText = document.createElement("div");
+    gameOverText.classList.add("text")
+
     if (humanScore >= 3) {
-        console.log("You win! Your victory shall be celebrated for years to come!");
+        gameOverText.textContent = "You win! Your victory shall be celebrated for years to come!";
     } else {
-        console.log("You have been defeated. Your computer looks oddly smug.");
+        gameOverText.textContent = "You have been defeated. Your computer looks oddly smug.";
     }
-    console.log("--------------------------------------------------")
+
+    const newGameButton = document.createElement("button");
+    newGameButton.classList.add("new-game-button");
+    newGameButton.textContent = "New Game";
+    newGameButton.addEventListener("click", newGame);
+
+    gameOverContainer.appendChild(gameOverText);
+    gameOverContainer.appendChild(newGameButton);
+
 }
+
+function disableButtons() {
+    buttons.forEach((button) => {
+        document.getElementById(button.id).disabled = true;
+    });
+}
+
+function enableButtons() {
+    buttons.forEach((button) => {
+        document.getElementById(button.id).disabled = false;
+    });
+}
+
+function removeGameOverChildren() {
+    gameOverContainer.replaceChildren();
+}
+
 
 function resetScores() {
     humanScore = 0;
     computerScore = 0;
+}
+
+function newGame() {
+    resetScores();
+    removeGameOverChildren();
+    scorelineText.textContent = `Human: ${humanScore} | ${computerScore} :Computer`;
+    resultText.textContent = "Press a button to start playing a best of 5!";
+    enableButtons();
 }
